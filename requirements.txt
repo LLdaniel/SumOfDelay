@@ -1,0 +1,4 @@
+nicegui>=2.13.0
+nicegui-highcharts>=2.1.0
+python-socketio>=5.12.1
+websockets>=15.0.1
