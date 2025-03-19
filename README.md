@@ -13,11 +13,11 @@ python -m venv ./path/of/your/choice/SumOfDelayEnv
 # activate env
 source ./path/of/your/choice/SumOfDelayEnv/bin/activate
 
-# install requirements
-pip install -r requirements.txt
-
 # checkout sources
 git clone https://github.com/LLdaniel/SumOfDelay.git
+
+# install requirements
+pip install -r requirements.txt
 ```
 
 ## Run
@@ -34,4 +34,4 @@ The frontend is now available under the following links:
 http://localhost:8080 and http://192.168.1.220:8080
 
 ## Tooling details
-The plugin is written in [python](https://www.python.org/) and utilizes [NiceGUI](https://nicegui.io/) for a mimial browser based frontend. 
+The plugin is written in [python](https://www.python.org/) and utilizes [NiceGUI](https://nicegui.io/) for a minimal browser based frontend. 
