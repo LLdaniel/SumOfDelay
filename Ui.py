@@ -2,7 +2,7 @@ from nicegui import ui, app
 from datetime import datetime
 
 class Ui:
-    def __init__(self):
+    def __init__(self, controlcenter):
         self.delaydata = [0, 0, 0, 0, 0, 0, 0, 0]
         with ui.column().classes('w-full items-center'):
             result = ui.label().classes('mr-auto')
@@ -10,7 +10,7 @@ class Ui:
                 with ui.menu() as menu:
                     ui.menu_item('Shutdown Sum Of Delay', self.shutdown)
         self.chart = ui.highchart({
-            'title': {'text': 'Sum Of Delay - Train Type'},
+            'title': {'text': 'Sum Of Delay - ' + controlcenter},
             'subtitle': {'text': self.timestamp()},
             'chart': {'type': 'bar'},
             'xAxis': {'categories': ['freight', 'longdistance', 'regional', 'city', 'special', 'loco', 'construction', 'other']},
