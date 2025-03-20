@@ -48,14 +48,12 @@ class StsConnector:
             simtimeTag = self.send_message(self.write_xml('simzeit', [('sender', str(round(time.time())))]), 'simzeit')
             self.simtime = self.read_xml_single(simtimeTag, 'simzeit', 'zeit')
 
-            #region
+            # region
             signalBoxInfo = self.send_message(self.write_xml('anlageninfo'), 'anlageninfo')
             self.region = Region(self.read_xml_single(signalBoxInfo, 'anlageninfo', 'name'), self.read_xml_single(signalBoxInfo, 'anlageninfo', 'region'))
 
             # train list
-            trainsxml = self.send_message(self.write_xml('zugliste'), 'zugliste')
-            self.generateTrainList(trainsxml)
-            #self.trainlist = self.read_xml_multi(trainsxml, 'zug', 'name')
+            self.generateTrainList()
         else:
             logger.error('Registration failed!')
             
@@ -69,8 +67,10 @@ class StsConnector:
     #        attributelist.append(a.getAttribute(attribute))
     #    return attributelist
 
-    def generateTrainList(self, trainsxml):
+    def generateTrainList(self):
+        trainsxml = self.send_message(self.write_xml('zugliste'), 'zugliste')
         trainTag = parseString(trainsxml).getElementsByTagName('zug')
+        intermediateTrainList = []
         for tags in trainTag:
             zid = tags.getAttribute('zid')
             name = tags.getAttribute('name')
@@ -80,8 +80,11 @@ class StsConnector:
             if self.read_xml_single(traindetailsxml, 'zugdetails', 'sichtbar') == 'true':
                 visible = True
             mytype = TrainType(name, self.region.country)
-            self.trainlist.append(Train(zid, name, mytype.traintype, delay, visible))
-    
+            intermediateTrainList.append(Train(zid, name, mytype.traintype, delay, visible))
+        self.trainlist = intermediateTrainList
+        return intermediateTrainList
+
+
     def receive_full_message(self, tag):
         buffer = ''
         logger.debug('----receiving message parts...----')
@@ -92,7 +95,13 @@ class StsConnector:
             buffer += data
             logger.debug(buffer)
             # Check if the complete message is received
-            if buffer.endswith('***EOR***\n') or buffer.endswith(' />\n') or buffer.endswith('</' + tag + '>\n'):
-                break
+            # directly closing tag
+            if tag == 'simzeit' or tag == 'anlageninfo' or tag == 'zugdetails':
+                if buffer.endswith('***EOR***\n') or buffer.endswith(' />\n') or buffer.endswith('</status>\n'):
+                    break
+            # more tags
+            else:
+                if buffer.endswith('***EOR***\n') or buffer.endswith('</' + tag + '>\n') or buffer.endswith('</status>\n'):
+                    break
         logger.debug('----buffer complete----')
         return buffer.replace('\n', '')
