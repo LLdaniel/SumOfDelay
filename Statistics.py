@@ -28,6 +28,9 @@ class Statistics:
         self.delay[index] += diff
         
     def update(self, stsCon):
+        # integrate updated trainlist into statistics lists
+        self.trainsInvisible = set(stsCon.generateTrainList()) - self.trains
+
         # update new delay
         for i in self.trains.copy():
             traindetailsxml = stsCon.send_message(stsCon.write_xml('zugdetails', [('zid', str(i.tid))]), 'zugdetails')
@@ -38,8 +41,8 @@ class Statistics:
             newvisible = False
             if stsCon.read_xml_single(traindetailsxml, 'zugdetails', 'sichtbar') == 'false':
                 self.trains.remove(i)
-                i.visible = False
-                self.trainsInvisible.add(i)
+                #i.visible = False
+                #self.trainsInvisible.add(i) train completely gone? otherwise will be re-introduced with updated invisible listx
                 
         # add newly visible to list and remove from invisible list
         for j in self.trainsInvisible.copy():
