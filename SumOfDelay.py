@@ -8,7 +8,7 @@ import argparse
 ##################################################################
 host = '127.0.0.1'  # Replace with the server IP or hostname
 port = 3691         # Replace with the desired port
-version = '0.0.1'   # Plugin version
+version = '1.0.1'   # Plugin version
 interval = 30.0     # update interval [s]
 ##################################################################
 

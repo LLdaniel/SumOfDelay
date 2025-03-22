@@ -42,11 +42,15 @@ class TrainType:
                 self.freight = ('CB', 'CbZ', 'CFA', 'CFN', 'CHL', 'CIL', 'CL', 'CS', 'CSQ', 'CT', 'DFG', 'DGE', 'DGN', 'DGS', 'DGX', 'DGZ', 'DNG', 'EnKo', 'EUC', 'ExC', 'EZ', 'EZK', 'FE', 'FIR', 'FR', 'FS', 'FX', 'FZ', 'FZT', 'GAG', 'GAGC', 'GC', 'GX', 'GZ', 'HGK', 'ICG', 'ICL', 'IKE', 'IKL', 'IKS', 'IRC', 'KC', 'KCL', 'KT', 'NG', 'PIC', 'RA', 'RWE', 'TC', 'TEC', 'Tfzl', 'TKC', 'TRC')
                 self.longdistance = ('AS', 'AZ', 'CNL', 'D', 'DLr', 'DLt', 'DPE', 'DPF', 'EC', 'EN', 'FLX', 'IC', 'ICE', 'LNF', 'LPF', 'LPFT', 'LR', 'LRV', 'LRZ', 'NJ', 'RJ', 'RJX', 'TGV', 'THA', 'VX', 'WEST', 'X')
                 self.regional = ('ABR', 'AKN', 'ALX', 'BOB', 'CAN', 'DNR', 'EIB', 'ERB', 'EVB', 'FEG', 'FEX', 'HEX', 'HLB', 'HTB', 'HZL', 'IRE', 'LT', 'ME', 'MEr', 'MR', 'MRB', 'NBE', 'NEB', 'NEG', 'NOB', 'NWB', 'OE', 'OLA', 'PEG', 'PRE', 'RB', 'RbZ', 'RE', 'RTB', 'SBB', 'SHB', 'STB', 'SWE', 'UBB', 'VBG', 'VEC', 'VIA', 'WEG', 'WFB')
-                self.city = ('BSB', 'CBC', 'Dsts', 'B', 'G', 'H', 'I', 'P', 'W', 'E', 'LS', 'OSB', 'RT', 'S')
+                self.city = ('BSB', 'CBC', 'Dsts', 'B', 'G', 'H', 'I', 'P', 'W', 'E', 'LS', 'OSB', 'RT', 'S', 'Messeshuttle')
                 self.special = ('DbZ', 'DZ', 'M', 'MCT', 'PbZ', 'SDZ')
                 self.loco = ('L', 'Lok', 'LOKF', 'LZ', 'Rf', 'Schadl', 'C', 'F', 'R', 'Schadt', 'Schadw', 'T', 'Tfzf')
                 self.construction = ('Bauz', 'DGV')
-                self.prefix = name[0:name.index(' ')]
+                try:
+                    self.prefix = name[0:name.index(' ')]
+                except:
+                    # case without number, i.e. Messeshuttle in Augsburg
+                    self.prefix = name
             case _:
                 logger.warning('Country ' + country + ' not known. No categories available!')
                 self.prefix = ''
