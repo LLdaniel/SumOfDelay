@@ -24,6 +24,8 @@ class Statistics:
         return index
 
     def add_delay(self, ttype, diff):
+        if diff != 0:
+            logger.info(f'Added {diff}min delay')
         index = self.find_index(ttype)
         self.delay[index] += diff
         
@@ -42,6 +44,8 @@ class Statistics:
             # handle case: train still present, calculate new delay
             else:
                 newdelay = int(stsCon.read_xml_single(traindetailsxml, 'zugdetails', 'verspaetung'))
+                if newdelay != i.delay:
+                    logger.info(f'{i.name} identified as {i.traintype} has newdelay={newdelay}min vs. previous delay={i.delay}min')
                 self.add_delay(i.traintype, i.diff(newdelay))
 
                 # remove trains that have become invisible

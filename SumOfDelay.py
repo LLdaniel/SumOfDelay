@@ -16,7 +16,7 @@ interval = 30.0     # update interval [s]
 parser = argparse.ArgumentParser()
 parser.add_argument( '-l',
                      '--loglevel',
-                     default='warning',
+                     default='info',
                      help='Provide logging level like error, warning, info, debug, default=warning' )
 args = parser.parse_args()
 
