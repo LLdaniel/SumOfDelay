@@ -52,6 +52,6 @@ for t in stsCon.trainlist:
     stats.add_train(t)
 
 # UI part
-sodUi = Ui(stsCon.region.name)
+sodUi = Ui(stsCon.region.name, interval)
 ui.timer(interval, lambda: worker(sodUi, stats, stsCon))
 ui.run(title='Sum Of Delay', favicon='🚆', reload=True)
