@@ -41,7 +41,7 @@ class StsConnector:
         return xml
     
     def register(self, version):
-        self.send_message(self.write_xml('register', [('name', 'SumOfDelay'), ('autor', 'archimedes'), ('version', version), ('protokoll', '1'), ('text', 'Delay overview of your signal box.')]), 'status')
+        self.send_message(self.write_xml('register', [('name', 'SumOfDelay'), ('autor', 'archimedes'), ('version', version), ('protokoll', '1'), ('text', 'Delay overview of your train control center.')]), 'status')
         response = self.send_message('', 'status')
         if self.read_xml_single(response, 'status', 'code') == '220':
             # simtime

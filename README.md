@@ -25,7 +25,7 @@ Within your installed environment *Sum Of Delay* can be run with
 ```shell
 python SumOfDelay.py
 ```
-In order to change the log level the option `-l` or `loglevel` can be used. The default level is "info".
+In order to change the log level the option `-l` or `--loglevel` can be used. The default level is "info".
 For further details see
 ```shell
 python SumOfDelay.py --help
