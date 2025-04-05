@@ -8,7 +8,7 @@ import argparse
 ##################################################################
 host = '127.0.0.1'  # Replace with the server IP or hostname
 port = 3691         # Replace with the desired port
-version = '1.0.1'   # Plugin version
+version = '1.1.0'   # Plugin version
 interval = 30.0     # update interval [s]
 ##################################################################
 
@@ -52,6 +52,6 @@ for t in stsCon.trainlist:
     stats.add_train(t)
 
 # UI part
-sodUi = Ui(stsCon.region.name)
+sodUi = Ui(stsCon.region.name, interval)
 ui.timer(interval, lambda: worker(sodUi, stats, stsCon))
 ui.run(title='Sum Of Delay', favicon='🚆', reload=True)
