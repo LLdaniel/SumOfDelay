@@ -44,7 +44,7 @@ class TrainType:
                 self.regional = ('ABR', 'AKN', 'ALX', 'BOB', 'CAN', 'DNR', 'EIB', 'ERB', 'EVB', 'FEG', 'FEX', 'HEX', 'HLB', 'HTB', 'HZL', 'IRE', 'LT', 'ME', 'MEr', 'MR', 'MRB', 'NBE', 'NEB', 'NEG', 'NOB', 'NWB', 'OE', 'OLA', 'PEG', 'PRE', 'RB', 'RbZ', 'RE', 'RTB', 'SBB', 'SHB', 'STB', 'SWE', 'UBB', 'VBG', 'VEC', 'VIA', 'WEG', 'WFB', 'BRB', 'RB-D', 'RE-D', 'DPN', 'DPN-G')
                 self.city = ('BSB', 'CBC', 'Dsts', 'B', 'G', 'H', 'I', 'P', 'W', 'E', 'LS', 'OSB', 'RT', 'S', 'Messeshuttle', "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9")
                 self.special = ('DbZ', 'DZ', 'M', 'MCT', 'PbZ', 'SDZ')
-                self.loco = ('L', 'Lok', 'LOKF', 'LZ', 'Rf', 'Schadl', 'C', 'F', 'R', 'Schadt', 'Schadw', 'T', 'Tfzf', 'Ersatzlok')
+                self.loco = ('L', 'Lok', 'LOK', 'LOKF', 'LZ', 'Rf', 'Schadl', 'C', 'F', 'R', 'Schadt', 'Schadw', 'T', 'Tfzf', 'Ersatzlok')
                 self.construction = ('Bauz', 'DGV')
                 try:
                     self.prefix = name[0:name.index(' ')]
