@@ -46,7 +46,18 @@ class Statistics:
                 newdelay = int(stsCon.read_xml_single(traindetailsxml, 'zugdetails', 'verspaetung'))
                 if newdelay != i.delay:
                     logger.info(f'{i.name} identified as {i.traintype} has newdelay={newdelay}min vs. previous delay={i.delay}min')
-                self.add_delay(i.traintype, i.diff(newdelay))
+                    #
+                    # >= 1000min delay glitch of mainly "Lok"
+                    # looks like this in the .log:
+                    #          Lok CBZ 57372 identified as LOCO has newdelay=1155min vs. previous delay=0min
+                    #          Added 1155min delay
+                    # -> filter them out and set the strange delay value without adding it to the stats
+                    if newdelay >= 1000:
+                        i.diff(newdelay)
+                        logger.warning(f'High delay glitch encountered in {i.name}: Ignoring this delay jump!')
+                    # normal case: set new delay and add it to the stats
+                    else:
+                        self.add_delay(i.traintype, i.diff(newdelay))
 
                 # remove trains that have become invisible
                 newvisible = False
