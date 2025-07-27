@@ -27,8 +27,17 @@ class TrainType:
                 self.loco = ('LT', 'LR', 'SCHADW', 'Lok', 'RF', 'RA')
                 self.construction = ('BAUZ', 'TFZF')
                 self.prefix = name[0:name.index(' ')]# substring(0, name.substring(0, index(' ')))
-            case 'DK'|'FR'|'GB'|'IT'|'LU'|'NL'|'AT'|'CH'|'PL'|'CZ':
+            case 'DK'|'FR'|'GB'|'LU'|'NL'|'AT'|'CH'|'PL'|'CZ':
                 logger.warning('Country ' + country + ' currently not defined!')
+            case 'IT':
+                self.freight = ('MRS', 'TCS', 'EUC', 'TEC', 'TC', 'MRV', 'MRI', 'MI', 'MT', 'TME')
+                self.longdistance = ('EXP', 'EC', 'IC', 'EN', 'ES', 'AV', 'TGV')
+                self.regional = ('REG', 'MET', 'RE', 'RV', 'R', 'MXP')
+                self.city = ('Sx'. 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'SFM')
+                self.special = ('CP', 'STM')
+                self.loco = ('TRA', 'INV', 'LIS', 'm')
+                self.construction = ('NCL')
+                self.prefix = name[0:name.index(' ')]
             case 'SE':
                 self.freight = ('G', 'Gt')
                 self.longdistance = ('X', 'SJ', 'MTR', 'Natt', 'MTR', 'Snäll', 'FLX', 'Saga', 'Tågab')
