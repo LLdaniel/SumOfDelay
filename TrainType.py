@@ -33,7 +33,7 @@ class TrainType:
                 self.freight = ('MRS', 'TCS', 'EUC', 'TEC', 'TC', 'MRV', 'MRI', 'MI', 'MT', 'TME')
                 self.longdistance = ('EXP', 'EC', 'IC', 'EN', 'ES', 'AV', 'TGV')
                 self.regional = ('REG', 'MET', 'RE', 'RV', 'R', 'MXP')
-                self.city = ('Sx'. 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'SFM')
+                self.city = ('Sx', 'S1', 'S2', 'S3', 'S4', 'S5', 'S6', 'S7', 'S8', 'S9', 'SFM')
                 self.special = ('CP', 'STM')
                 self.loco = ('TRA', 'INV', 'LIS', 'm')
                 self.construction = ('NCL')
