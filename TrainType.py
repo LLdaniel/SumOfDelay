@@ -27,8 +27,17 @@ class TrainType:
                 self.loco = ('LT', 'LR', 'SCHADW', 'Lok', 'RF', 'RA')
                 self.construction = ('BAUZ', 'TFZF')
                 self.prefix = name[0:name.index(' ')]# substring(0, name.substring(0, index(' ')))
-            case 'DK'|'FR'|'GB'|'LU'|'NL'|'AT'|'CH'|'PL'|'CZ':
+            case 'DK'|'FR'|'GB'|'LU'|'NL'|'AT'|'CH'|'CZ':
                 logger.warning('Country ' + country + ' currently not defined!')
+            case 'PL':
+                self.freight = ('G', 'NG')
+                self.longdistance = ('EIP', 'EN', 'EIC', 'EC', 'IC', 'TLK')
+                self.regional = ('RE', 'IR', 'RP', 'OsP', 'Os')
+                self.city = ('R', 'SKM')
+                self.special = ('M')
+                self.loco = ('LT', 'LR', 'SCHADW', 'RF', 'Lok')
+                self.construction = ('BAUZ', 'TFZF')
+                self.prefix = name[0:name.index(' ')]
             case 'IT':
                 self.freight = ('MRS', 'TCS', 'EUC', 'TEC', 'TC', 'MRV', 'MRI', 'MI', 'MT', 'TME')
                 self.longdistance = ('EXP', 'EC', 'IC', 'EN', 'ES', 'AV', 'TGV')
