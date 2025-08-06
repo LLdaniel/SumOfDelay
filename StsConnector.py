@@ -41,21 +41,25 @@ class StsConnector:
         return xml
     
     def register(self, version):
-        self.send_message(self.write_xml('register', [('name', 'SumOfDelay'), ('autor', 'archimedes'), ('version', version), ('protokoll', '1'), ('text', 'Delay overview of your train control center.')]), 'status')
-        response = self.send_message('', 'status')
-        if self.read_xml_single(response, 'status', 'code') == '220':
-            # simtime
-            simtimeTag = self.send_message(self.write_xml('simzeit', [('sender', str(round(time.time())))]), 'simzeit')
-            self.simtime = self.read_xml_single(simtimeTag, 'simzeit', 'zeit')
+        try:
+            self.send_message(self.write_xml('register', [('name', 'SumOfDelay'), ('autor', 'archimedes'), ('version', version), ('protokoll', '1'), ('text', 'Delay overview of your train control center.')]), 'status')
+            response = self.send_message('', 'status')
+            if self.read_xml_single(response, 'status', 'code') == '220':
+                # simtime
+                simtimeTag = self.send_message(self.write_xml('simzeit', [('sender', str(round(time.time())))]), 'simzeit')
+                self.simtime = self.read_xml_single(simtimeTag, 'simzeit', 'zeit')
 
-            # region
-            signalBoxInfo = self.send_message(self.write_xml('anlageninfo'), 'anlageninfo')
-            self.region = Region(self.read_xml_single(signalBoxInfo, 'anlageninfo', 'name'), self.read_xml_single(signalBoxInfo, 'anlageninfo', 'region'))
+                # region
+                signalBoxInfo = self.send_message(self.write_xml('anlageninfo'), 'anlageninfo')
+                self.region = Region(self.read_xml_single(signalBoxInfo, 'anlageninfo', 'name'), self.read_xml_single(signalBoxInfo, 'anlageninfo', 'region'))
 
-            # train list
-            self.generateTrainList()
-        else:
-            logger.error('Registration failed!')
+                # train list
+                self.generateTrainList()
+            else:
+                logger.error('Registration failed!')
+        except Exception:
+            logger.error('Registering for Stellwerksim failed! Maybe Stellwerksim is not running?')
+            exit(1)
             
     def read_xml_single(self, response, tag, attribute):
         return parseString(response).getElementsByTagName(tag)[0].getAttribute(attribute)
