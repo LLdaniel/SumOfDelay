@@ -35,7 +35,7 @@ class Ui:
             'series': [
                 {'name': 'Delay per Train Type', 'data': self.delaydata, 'color': '#86bac1'}
             ],
-        }).classes('h-256')
+        }).classes('h-128')
         
         self.freighttrack = [0]
         self.longdistancetrack = [0]
@@ -108,7 +108,7 @@ class Ui:
                 'title': {'text': 'Sum Of Delay - ' + controlcenter},
             },
         }
-        self.timetrack = ui.plotly(self.timedata).classes('w-full h-256')
+        self.timetrack = ui.plotly(self.timedata).classes('w-full h-128')
         
     def update(self, newdata):
         # live chart
