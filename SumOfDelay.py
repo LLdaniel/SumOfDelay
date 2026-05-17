@@ -1,6 +1,6 @@
 from StsConnector import StsConnector
 from Statistics import Statistics
-from nicegui import ui
+from nicegui import app, ui
 from Ui import Ui
 import logging
 import argparse
@@ -8,9 +8,11 @@ import argparse
 ##################################################################
 host = '127.0.0.1'  # Replace with the server IP or hostname
 port = 3691         # Replace with the desired port
-version = '1.2.2'   # Plugin version
+version = '1.3.0'   # Plugin version
 interval = 30.0     # update interval [s]
 ##################################################################
+stsCon = None
+stats = None
 
 # parsing
 parser = argparse.ArgumentParser()
@@ -32,7 +34,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 ############################################################
 
-def worker(sodUi, stats, stsCon):
+def worker(sodUi):
     logger.debug('------Now updating...------')
     stats.update(stsCon)
     sodUi.update(stats.delay)
@@ -41,17 +43,27 @@ def worker(sodUi, stats, stsCon):
     logger.debug(stats.delay)
     logger.debug('------... update done!------')
 
-##########################################################
-# Create a new connection to Stellwerksim
-stsCon = StsConnector(host, port)
-stsCon.register(version)
-stats = Statistics()
+async def startup():
+    # Create a new connection to Stellwerksim
+    global stsCon, stats, sodUi
+    stsCon = StsConnector(host, port)
+    stsCon.register(version)
 
-# initially set train lists
-for t in stsCon.trainlist:
-    stats.add_train(t)
+    # initially set train lists
+    stats = Statistics()
+    for t in stsCon.trainlist:
+        stats.add_train(t)
 
 # UI part
-sodUi = Ui(stsCon.region.name, interval)
-ui.timer(interval, lambda: worker(sodUi, stats, stsCon))
+#  has to be done separate from startup
+@ui.page('/')
+def index():
+    sodUi = Ui(stsCon.region.name, interval)
+    ui.timer(interval, lambda: worker(sodUi))
+
+##########################################################
+
+# due to multiprocessing of NiceGUI use on_startup
+# to prevent multiple connections to Sts server
+app.on_startup(startup)
 ui.run(title='Sum Of Delay', favicon='🚆', reload=True)
